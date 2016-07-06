@@ -8,7 +8,12 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir /backup
 RUN touch /var/log/backup.log
-ADD ./backup.sh /etc/cron.daily/
-RUN chmod +x /etc/cron.daily/backup.sh
+ADD ./bin/backup /etc/cron.daily/
+RUN chmod +x /etc/cron.daily/backup
+
+ADD ./bin/backup /bin/backup
+ADD ./bin/restore /bin/restore
+
+RUN mkdir /restore
 
 CMD tail -f /var/log/backup.log
